@@ -35,7 +35,7 @@ import math
 
 def main():
     """ Calls the   TEST   functions in this module. """
-    run_test_hourglass()
+    #run_test_hourglass()
     run_test_many_hourglasses()
 
 
@@ -217,7 +217,7 @@ def many_hourglasses(window, square, m, colors):
     each of which denotes a color that rosegraphics understands.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #       We provided some tests for you (above).
     # -------------------------------------------------------------------------
     ###########################################################################
@@ -234,12 +234,42 @@ def many_hourglasses(window, square, m, colors):
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
 
-    x = square.center.x
-    y = square.center.y
+    side = square.length_of_each_side
+    radius = (0.5*square.length_of_each_side)
+    dy = math.sqrt((2*radius)**2 - (radius ** 2))
+
+    ux = square.center.x - (0.5*square.length_of_each_side)
+    uy = square.center.y - (0.5*square.length_of_each_side)
+
+    lx = square.center.x + (0.5 * square.length_of_each_side)
+    ly = square.center.y + (0.5 * square.length_of_each_side)
+
+    cx = square.center.x
+    cy = square.center.y
+
+    num = 0
 
     for k in range(m):
-        square = rg.Square(rg.Point(x,y))
+        if num >= len(colors):
+            num = 0
+            print('hello')
+        rectangle = rg.Rectangle(rg.Point(ux,uy),rg.Point(lx,ly))
+        hourglass(window,k+1,rg.Point(cx,cy),radius,colors[num])
+        rectangle.attach_to(window)
+        window.render()
+        num += 1
 
+
+
+        ux -= radius
+        uy -= dy
+        lx += radius
+        ly += dy
+
+        ux += side*(k+1) + 0.5 * side
+        lx += side*(k+1) + 0.5 * side
+
+        cx = (lx + ux)/2
 
 
 
