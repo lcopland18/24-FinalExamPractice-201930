@@ -6,8 +6,8 @@ This problem provides practice at:
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Lauren Copland.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 ###############################################################################
 # Students:
@@ -30,6 +30,7 @@ Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
 ###############################################################################
 
 import rosegraphics as rg
+import math
 
 
 def main():
@@ -64,6 +65,16 @@ def run_test_hourglass():
     window2.close_on_mouse_click()
 
 
+def circle_line(x, y, radius, color, window):
+    circle = rg.Circle(rg.Point(x, y), radius)
+    circle.fill_color = color
+    circle.attach_to(window)
+    window.render()
+
+    line = rg.Line(rg.Point(x - radius, y), rg.Point(x + radius, y))
+    line.attach_to(window)
+    window.render()
+
 def hourglass(window, n, point, radius, color):
     """
     See   hourglass_picture.pdf   in this project for pictures that may
@@ -90,7 +101,7 @@ def hourglass(window, n, point, radius, color):
     a color that rosegraphics understands.
     """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #       We provided some tests for you (above).
     # -------------------------------------------------------------------------
     ###########################################################################
@@ -102,6 +113,48 @@ def hourglass(window, n, point, radius, color):
     #    DIFFICULTY:      8
     #    TIME ESTIMATE:  25 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
+
+   #See circle_line fuction above hourglass function
+    x = point.x
+    y = point.y
+
+    ogx = point.x
+    ogy = point.y
+
+    dy = math.sqrt((2*radius)**2 - (radius ** 2))
+    dx = 2*radius
+
+    for k in range(n):
+        circle_line(x,y,radius,color,window)
+        x = ogx
+        y = ogy
+        y -= dy * (k)
+        x -= (k)*radius
+        startx = x + dx
+        #circle_line(x,y,radius,color,window)
+
+        for j in range(k):
+            circle_line(x,y,radius,color,window)
+            x = startx
+            x += (j) * dx
+            circle_line(x,y,radius,color,window)
+
+
+    for k in range(n):
+        circle_line(x,y,radius,color,window)
+        x = ogx
+        y = ogy
+        y += dy * (k)
+        x -= (k)*radius
+        startx = x + dx
+        #circle_line(x,y,radius,color,window)
+
+        for j in range(k):
+            circle_line(x,y,radius,color,window)
+            x = startx
+            x += (j) * dx
+            circle_line(x,y,radius,color,window)
+
 
 
 def run_test_many_hourglasses():
@@ -180,6 +233,14 @@ def many_hourglasses(window, square, m, colors):
     #                         a correct "hourglass" function above)
     #    TIME ESTIMATE:  20 minutes (warning: this problem is challenging)
     # -------------------------------------------------------------------------
+
+    x = square.center.x
+    y = square.center.y
+
+    for k in range(m):
+        square = rg.Square(rg.Point(x,y))
+
+
 
 
 # -----------------------------------------------------------------------------
